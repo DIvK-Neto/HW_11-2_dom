@@ -1,3 +1,5 @@
+/* eslint-env browser, node */
+
 let field = null;
 const cells = [];
 let lastPosition = -1;

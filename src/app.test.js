@@ -1,3 +1,5 @@
+/* eslint-env jest */
+
 beforeEach(() => {
     document.body.innerHTML = `
     <div id="game-field"></div>
