@@ -1,5 +1,3 @@
-/* eslint-env browser, node */
-
 let field = null;
 const cells = [];
 let lastPosition = -1;
@@ -80,22 +78,24 @@ function init(opts = {}) {
     if (restartBtn) restartBtn.addEventListener('click', restartGame);
 }
 
-module.exports = {
-    init,
-    createGrid,
-    placeGoblin,
-    handleClick,
-    attachHandlers,
-    startGame,
-    stopGame,
-    restartGame,
-    _internals: { cells, getLastPosition: () => lastPosition }
-};
+// Экспорт в Node.js
+if (typeof module !== 'undefined' && typeof exports !== 'undefined') {
+    module.exports = {
+        init,
+        createGrid,
+        placeGoblin,
+        handleClick,
+        attachHandlers,
+        startGame,
+        stopGame,
+        restartGame,
+        _internals: { cells, getLastPosition: () => lastPosition }
+    };
+}
 
-// Автозапуск в браузере, не мешает тестам (только если DOM содержит нужные элементы)
+// Автозапуск в браузере
 if (typeof window !== 'undefined') {
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        // Отложенный init, чтобы элементы успели присутствовать
         setTimeout(() => init(), 0);
     } else {
         window.addEventListener('DOMContentLoaded', () => init());
