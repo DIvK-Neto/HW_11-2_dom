@@ -10,7 +10,7 @@ function createGrid() {
     for (let i = 0; i < 16; i++) {
         const cell = document.createElement('div');
         cell.classList.add('cell');
-        field.appendChild(cell);
+        field.append(cell);
         cells.push(cell);
     }
 }
@@ -78,26 +78,21 @@ function init(opts = {}) {
     if (restartBtn) restartBtn.addEventListener('click', restartGame);
 }
 
-// Экспорт в Node.js
-if (typeof module !== 'undefined' && typeof exports !== 'undefined') {
-    module.exports = {
-        init,
-        createGrid,
-        placeGoblin,
-        handleClick,
-        attachHandlers,
-        startGame,
-        stopGame,
-        restartGame,
-        _internals: { cells, getLastPosition: () => lastPosition }
-    };
-}
+// Экспорт всех функций для использования в других файлах
+export {
+    init,
+    createGrid,
+    placeGoblin,
+    handleClick,
+    attachHandlers,
+    startGame,
+    stopGame,
+    restartGame,
+    cells as _internals,
+};
+
+// Экспорт функции для получения последней позиции
+export const getLastPosition = () => lastPosition;
 
 // Автозапуск в браузере
-if (typeof window !== 'undefined') {
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        setTimeout(() => init(), 0);
-    } else {
-        window.addEventListener('DOMContentLoaded', () => init());
-    }
-}
+window.addEventListener('DOMContentLoaded', () => init());
